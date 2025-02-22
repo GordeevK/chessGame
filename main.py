@@ -1,4 +1,4 @@
-from board import board
+from board import Board
 
-a = board()
+a = Board()
 a.printBoard()
