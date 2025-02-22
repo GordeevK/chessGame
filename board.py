@@ -1,4 +1,3 @@
-from piece import Piece
 from pieces.pawn import Pawn
 
 
@@ -18,6 +17,7 @@ class Board:
             ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
             ['8', '7', '6', '5', '4', '3', '2', '1']
         ]
+
     def print_board(self):
         print("   A  B  C  D  E  F  G  H")
         for id_line in range(8):
@@ -37,9 +37,11 @@ class Board:
         x2, y2 = self.__coordinates[0].index(x2), self.__coordinates[1].index(y2)
         if self.__board[y1][x1] != None:
             piece = self.__board[y1][x1]
-            if piece.can_move(move_from, move_to) and piece.can_capture(move_from, move_to):
+            if piece.can_move(move_from, move_to):
+                piece.move()
                 self.__board[y2][x2] = piece
                 self.__board[y1][x1] = None
+
             else:
                 print("cant move")
         else:

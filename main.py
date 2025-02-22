@@ -1,9 +1,10 @@
 from board import Board
 import re
 
-def parse_move_command(command):
+
+def parse_move_command(parse_command):
     pattern = r"move ([A-H][1-8]) ([A-H][1-8])"
-    match = re.match(pattern, command, re.IGNORECASE)
+    match = re.match(pattern, parse_command, re.IGNORECASE)
     if match:
         from_value = match.group(1)
         to_value = match.group(2)
@@ -12,8 +13,8 @@ def parse_move_command(command):
         print("Неверный формат команды - move")
         input()
 
-board = Board()
 
+board = Board()
 command = ""
 while command != "exit":
     board.print_board()

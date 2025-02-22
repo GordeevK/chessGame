@@ -1,18 +1,22 @@
 class Piece:
-    def __init__(self, name: str, color: str):
-        self.__name = name
-        self.__color = color
+    def __init__(self, color: str):
+        self.color = color
+        self.first_move = True
 
     def __str__(self):
-        return self.__color[0].lower() + self.__name[0].upper()
+        return self.color[0].lower()
 
     def can_move(self, move_from, move_to):
-        y1, x1 = move_from
-        y2, x2 = move_to
-        return True
-    def can_capture(self,move_from, move_to):
         return True
 
+    def move(self):
+        self.first_move = False
 
-piece = Piece("Pawn", "Black")
-print(piece)
+    def is_first_move(self):
+        return self.first_move
+
+    def is_white(self):
+        if self.color == "White":
+            return True
+        return False
+

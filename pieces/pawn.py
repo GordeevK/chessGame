@@ -2,14 +2,15 @@ from piece import Piece
 
 
 class Pawn(Piece):
-    def __init__(self, color: str):
-        self.__color = color
-        self.can_move_through = False
-        self.first_move
     def __str__(self) -> str:
-        return self.__color[0].lower() + "P"
+        return self.color[0].lower() + "P"
+
     def can_move(self, move_from, move_to):
-        y1, x1 = move_from
-        y2, x2 = move_to
-        if int(x1):
-            return True
+        x1, y1 = move_from
+        x2, y2 = move_to
+        if x1 == x2:
+            if self.is_white() and ((int(y2) - int(y1) == 1) or (int(y2) - int(y1) == 2 and self.is_first_move())):
+                return True
+            elif not self.is_white() and ((int(y2) - int(y1) == -1) or (int(y2) - int(y1) == -2 and self.is_first_move())):
+                return True
+
