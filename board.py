@@ -4,8 +4,8 @@ from piece import Piece
 class Board:
     def __init__(self):
         self.__board = [
-            [Piece("bR"), 'bN', 'bB', 'bQ', 'bK', 'bB', 'bN', 'bR'],
-            [Piece("bP"), Piece("bP"), Piece("bP"), Piece("bP"), Piece("bP"), Piece("bP"), Piece("bP"), Piece("bP")],
+            [Piece("Rook", "Black"), 'bN', 'bB', 'bQ', 'bK', 'bB', 'bN', 'bR'],
+            [Piece("Pawn", "Black"), Piece("Pawn", "Black"), Piece("Pawn", "Black"), Piece("Pawn", "Black"), Piece("Pawn", "Black"), Piece("Pawn", "Black"), Piece("Pawn", "Black"), Piece("Pawn", "Black")],
             [None, None, None, None, None, None, None, None],
             [None, None, None, None, None, None, None, None],
             [None, None, None, None, None, None, None, None],
@@ -13,7 +13,11 @@ class Board:
             ['wP', 'wP', 'wP', 'wP', 'wP', 'wP', 'wP', 'wP'],
             ['wR', 'wN', 'wB', 'wQ', 'wK', 'wB', 'wN', 'wR'],
         ]
-    def print_board(self) -> None:
+        self.__coordinates = [
+            ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+            ['8', '7', '6', '5', '4', '3', '2', '1']
+        ]
+    def print_board(self):
         print("   A  B  C  D  E  F  G  H")
         for id_line in range(8):
             print(8 - id_line, "|", end="")
@@ -25,16 +29,29 @@ class Board:
             print("")
         print("   A  B  C  D  E  F  G  H")
 
-    def move(self, move_from, move_to):
-        y1, x1 = move_from
-        y2, x2 = move_to
+    def move(self, move_from: str, move_to: str):
+        x1, y1 = self.split_coordinates(move_from)
+        x2, y2 = self.split_coordinates(move_to)
+        x1, y1= self.__coordinates[0].index(x1), self.__coordinates[1].index(y1)
+        x2, y2 = self.__coordinates[0].index(x2), self.__coordinates[1].index(y2)
         if self.__board[y1][x1] != None:
-            if self.__board[y1][x1].can_move():
-                print("move to", y2, x2)
+            piece = self.__board[y1][x1]
+            if piece.can_move(move_from, move_to):
+                self.__board[y2][x2] = piece
+                self.__board[y1][x1] = None
             else:
                 print("cant move")
         else:
             print("no piece")
+
+    def split_coordinates(self, coordinates):
+        if len(coordinates) == 2 and coordinates[0].isalpha() and coordinates[1].isdigit():
+            letter = coordinates[0]
+            number = coordinates[1]
+            return letter, number
+        else:
+            print("Неверные кординаты")
+            input()
 
 
 
