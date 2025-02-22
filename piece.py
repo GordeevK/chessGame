@@ -2,6 +2,7 @@ class Piece:
     def __init__(self, color: str):
         self.color = color
         self.first_move = True
+        self.can_capture = False
 
     def __str__(self):
         return self.color[0].lower()
@@ -19,4 +20,8 @@ class Piece:
         if self.color == "White":
             return True
         return False
+
+    def is_can_be_captured(self):
+        return True
+
 

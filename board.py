@@ -35,9 +35,13 @@ class Board:
         x2, y2 = self.split_coordinates(move_to)
         x1, y1= self.__coordinates[0].index(x1), self.__coordinates[1].index(y1)
         x2, y2 = self.__coordinates[0].index(x2), self.__coordinates[1].index(y2)
+        if self.__board[y2][x2] != None:
+            if not (self.__board[y2][x2].is_can_be_captured() and self.__board[y1][x1].can_capture(move_from, move_to)):
+                print("Мешает фигура")
+                return
         if self.__board[y1][x1] != None:
             piece = self.__board[y1][x1]
-            if piece.can_move(move_from, move_to):
+            if piece.can_move(move_from, move_to) or self.__board[y1][x1].can_capture(move_from, move_to):
                 piece.move()
                 self.__board[y2][x2] = piece
                 self.__board[y1][x1] = None
