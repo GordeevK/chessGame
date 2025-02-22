@@ -10,6 +10,8 @@ class Piece:
         y1, x1 = move_from
         y2, x2 = move_to
         return True
+    def can_capture(self,move_from, move_to):
+        return True
 
 
 piece = Piece("Pawn", "Black")

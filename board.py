@@ -1,16 +1,17 @@
 from piece import Piece
+from pieces.pawn import Pawn
 
 
 class Board:
     def __init__(self):
         self.__board = [
-            [Piece("Rook", "Black"), 'bN', 'bB', 'bQ', 'bK', 'bB', 'bN', 'bR'],
-            [Piece("Pawn", "Black"), Piece("Pawn", "Black"), Piece("Pawn", "Black"), Piece("Pawn", "Black"), Piece("Pawn", "Black"), Piece("Pawn", "Black"), Piece("Pawn", "Black"), Piece("Pawn", "Black")],
+            ["bR", 'bN', 'bB', 'bQ', 'bK', 'bB', 'bN', 'bR'],
+            [Pawn("Black"), Pawn("Black"), Pawn("Black"), Pawn("Black"), Pawn("Black"), Pawn("Black"), Pawn("Black"), Pawn("Black")],
             [None, None, None, None, None, None, None, None],
             [None, None, None, None, None, None, None, None],
             [None, None, None, None, None, None, None, None],
             [None, None, None, None, None, None, None, None],
-            ['wP', 'wP', 'wP', 'wP', 'wP', 'wP', 'wP', 'wP'],
+            [Pawn("White"), Pawn("White"), Pawn("White"), Pawn("White"), Pawn("White"), Pawn("White"), Pawn("White"), Pawn("White")],
             ['wR', 'wN', 'wB', 'wQ', 'wK', 'wB', 'wN', 'wR'],
         ]
         self.__coordinates = [
@@ -36,7 +37,7 @@ class Board:
         x2, y2 = self.__coordinates[0].index(x2), self.__coordinates[1].index(y2)
         if self.__board[y1][x1] != None:
             piece = self.__board[y1][x1]
-            if piece.can_move(move_from, move_to):
+            if piece.can_move(move_from, move_to) and piece.can_capture(move_from, move_to):
                 self.__board[y2][x2] = piece
                 self.__board[y1][x1] = None
             else:
