@@ -5,32 +5,40 @@ class Pawn(Piece):
     def __str__(self) -> str:
         return self.color[0].lower() + "P"
 
-    def can_move(self, move_from, move_to):
-        x1, y1 = move_from
-        x2, y2 = move_to
-        y1, y2 = int(y1), int(y2)
-        print(x1, x2, y1, y2)
-        if x1 == x2:
-            if self.is_white() and ((y2 - y1 == 1) or (y2 - y1 == 2 and self.is_first_move())):
-                return True
-            elif not self.is_white() and ((y2 - y1 == -1) or (y2 - y1 == -2 and self.is_first_move())):
-                return True
-        return False
-
-    def can_capture(self, move_from: str, move_to: str) -> bool:
-        x1_str, y1 = move_from[0], int(move_from[1])
-        x2_str, y2 = move_to[0], int(move_to[1])
-
-        x1 = ord(x1_str.upper()) - ord('A') + 1
-        x2 = ord(x2_str.upper()) - ord('A') + 1
-
-        if abs(x1 - x2) == 1:
-            if (y1 - y2 == -1 and self.is_white()) or (y1 - y2 == -1 and not self.is_white()):
-                return True
-        return False
+    def get_possible_moves(self, board: list[list]) -> list[tuple]:
+        moves = []
+        move_from = self.get_pos()
+        direction = -1 if self.is_white() else 1
+        one_step_forward = (move_from[0] + direction, move_from[1])
+        if self.can_move(move_from, one_step_forward, board):
+            moves.append(one_step_forward)
+        if (self.is_white() and move_from[0] == 6) or (not self.is_white() and move_from[0] == 1):
+            two_steps_forward = (move_from[0] + 2 * direction, move_from[1])
+            if self.can_move(move_from, two_steps_forward, board):
+                moves.append(two_steps_forward)
+        for delta_y in [-1, 1]:
+            attack_pos = (move_from[0] + direction, move_from[1] + delta_y)
+            if self.can_move(move_from, attack_pos, board) and board[attack_pos[0]][attack_pos[1]] is not None:
+                moves.append(attack_pos)
+        return moves
 
 
-pawn = Pawn("White")
-print(pawn.can_capture("D4", "C5"))
+board = [
+    [None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, Piece(color="Black", position=(3, 5)), None, None],
+    [None, None, None, None, None, None, None, None],
+    [None, None, None, None, None, Piece(color="Black", position=(5, 5)), None, None],
+    [None, None, None, None, None, None, Piece(color="Black", position=(6, 6)), None],
+    [None, None, None, None, None, None, None, None]
+]
+
+
+pawn = Pawn(color="White", position=(6, 4))
+
+
+possible_moves = pawn.get_possible_moves(board)
+print(possible_moves)
 
 

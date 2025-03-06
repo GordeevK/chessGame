@@ -9,8 +9,14 @@ class Piece:
     def __str__(self):
         return self.color[0].lower()
 
-    @property
-    def can_move(self, *args):
+    def can_move(self, move_from, move_to, board: list[list]) -> bool:
+        if not (0 <= move_to[0] < 8 and 0 <= move_to[1] < 8):
+            return False
+        target_piece = board[move_to[0]][move_to[1]]
+        if target_piece is not None and target_piece.is_white() == self.is_white():
+            return False
+        if not self.is_clear_path(move_from, move_to, board):
+            return False
         return True
 
     def get_pos(self):
