@@ -23,22 +23,3 @@ class Pawn(Piece):
         return moves
 
 
-board = [
-    [None, None, None, None, None, None, None, None],
-    [None, None, None, None, None, None, None, None],
-    [None, None, None, None, None, None, None, None],
-    [None, None, None, None, None, Piece(color="Black", position=(3, 5)), None, None],
-    [None, None, None, None, None, None, None, None],
-    [None, None, None, None, None, Piece(color="Black", position=(5, 5)), None, None],
-    [None, None, None, None, None, None, Piece(color="Black", position=(6, 6)), None],
-    [None, None, None, None, None, None, None, None]
-]
-
-
-pawn = Pawn(color="White", position=(6, 4))
-
-
-possible_moves = pawn.get_possible_moves(board)
-print(possible_moves)
-
-

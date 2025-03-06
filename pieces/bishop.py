@@ -11,7 +11,7 @@ class Bishop(Piece):
         directions = [(-1, -1), (-1, 1), (1, -1), (1, 1)]
         for dx, dy in directions:
             x, y = move_from
-            while 0 <= x + dx < 8 and 0 <= y + dy < 8:  # Пока не выйдем за пределы доски
+            while 0 <= x + dx < 8 and 0 <= y + dy < 8:
                 x += dx
                 y += dy
                 if self.can_move(move_from, (x, y), board):
@@ -19,22 +19,3 @@ class Bishop(Piece):
                 if board[x][y] is not None:
                     break
         return moves
-
-
-board = [
-    [None, None, None, None, None, None, None, None],
-    [None, None, None, None, None, None, None, None],
-    [None, None, None, None, None, None, None, None],
-    [None, None, None, None, None, None, None, None],
-    [None, None, None, None, None, None, None, None],
-    [None, None, None, None, None, None, None, None],
-    [None, None, None, None, None, None, Piece(color="Black", position=(6, 6)), None],
-    [None, None, None, None, None, None, None, None]
-]
-
-
-bishop = Bishop(color="White", position=(4, 4))
-
-
-possible_moves = bishop.get_possible_moves(board)
-print(possible_moves)
