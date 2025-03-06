@@ -1,27 +1,60 @@
 class Piece:
-    def __init__(self, color: str):
+    def __init__(self, color: str, position: tuple):
         self.color = color
         self.first_move = True
         self.can_capture = False
+        self.position = position
 
+    @property
     def __str__(self):
         return self.color[0].lower()
 
-    def can_move(self, move_from, move_to):
+    @property
+    def can_move(self, *args):
         return True
 
-    def move(self):
+    def get_pos(self):
+        return self.position
+
+    def move(self) -> None:
         self.first_move = False
 
-    def is_first_move(self):
+    def is_first_move(self) -> bool:
         return self.first_move
 
-    def is_white(self):
+    def is_white(self) -> bool:
         if self.color == "White":
             return True
         return False
 
-    def is_can_be_captured(self):
+    @property
+    def is_can_be_captured(self, *args) -> bool:
+        return True
+
+    def is_clear_path(self, move_from, move_to, board) -> bool:
+        dx = move_to[0] - move_from[0]
+        dy = move_to[1] - move_from[1]
+        if dx == 0:
+            step = 1 if dy > 0 else -1
+            for y in range(move_from[1] + step, move_to[1], step):
+                if board[move_from[0]][y] is not None:
+                    return False
+        elif dy == 0:
+            step = 1 if dx > 0 else -1
+            for x in range(move_from[0] + step, move_to[0], step):
+                if board[x][move_from[1]] is not None:
+                    return False
+        elif abs(dx) == abs(dy):
+            step_x = 1 if dx > 0 else -1
+            step_y = 1 if dy > 0 else -1
+            x, y = move_from[0] + step_x, move_from[1] + step_y
+            while (x, y) != move_to:
+                if board[x][y] is not None:
+                    return False
+                x += step_x
+                y += step_y
+        else:
+            return False
         return True
 
 
