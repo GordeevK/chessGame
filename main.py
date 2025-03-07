@@ -24,8 +24,6 @@ while command != "exit":
     if command[:4] == "move":
         move_from, move_to = parse_move_command(command)
         board.move(move_from, move_to)
-    elif:
-        
     else:
         print("Нет такой команды")
         input()
