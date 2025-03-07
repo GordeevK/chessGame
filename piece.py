@@ -6,10 +6,10 @@ class Piece:
         self.position = position
 
     @property
-    def __str__(self):
+    def __str__(self) -> str:
         return self.color[0].lower()
 
-    def can_move(self, move_from, move_to, board: list[list]) -> bool:
+    def can_move(self, move_from: tuple, move_to: tuple, board: list[list]) -> bool:
         if not (0 <= move_to[0] < 8 and 0 <= move_to[1] < 8):
             return False
         target_piece = board[move_to[0]][move_to[1]]
@@ -19,7 +19,7 @@ class Piece:
             return False
         return True
 
-    def get_pos(self):
+    def get_pos(self) -> tuple:
         return self.position
 
     def move(self) -> None:
@@ -33,11 +33,7 @@ class Piece:
             return True
         return False
 
-    @property
-    def is_can_be_captured(self, *args) -> bool:
-        return True
-
-    def is_clear_path(self, move_from, move_to, board) -> bool:
+    def is_clear_path(self,move_from: tuple, move_to: tuple, board: list[list]) -> bool:
         dx = move_to[0] - move_from[0]
         dy = move_to[1] - move_from[1]
         if dx == 0:
