@@ -2,7 +2,7 @@ from piece import Piece
 
 
 class Queen(Piece):
-   def __str__(self) -> str:
+    def __str__(self) -> str:
         return self.color[0].lower() + "Q"
 
     def get_possible_moves(self, board: list[list]) -> list[tuple]:
