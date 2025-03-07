@@ -1,3 +1,5 @@
+from typing import Tuple
+
 from pieces.pawn import Pawn
 from pieces.bishop import Bishop
 from pieces.rook import Rook
@@ -39,34 +41,36 @@ class Board:
             print("")
         print("   A  B  C  D  E  F  G  H")
 
+    def print_piece_position(self, move_from):
+        x1, y1 = self.split_coordinates(move_from)
+        piece = self.__board[y1][x1]
+        print(piece)
+
+    def print_piece_possible_moves(self, move_from):
+        x1, y1 = self.split_coordinates(move_from)
+        piece = self.__board[y1][x1].get_possible_moves(self.__board)
+        print(piece)
+        print(y1, x1)
+
     def move(self, move_from: str, move_to: str) -> None:
         x1, y1 = self.split_coordinates(move_from)
         x2, y2 = self.split_coordinates(move_to)
-        x1, y1= self.__coordinates[0].index(x1), self.__coordinates[1].index(y1)
-        x2, y2 = self.__coordinates[0].index(x2), self.__coordinates[1].index(y2)
         piece = self.__board[y1][x1]
-        if self.__board[y2][x2] != None:
-            if (self.__board[y2][x2].is_can_be_captured() and self.__board[y1][x1].can_capture(move_from, move_to)):
-                print("Мешает фигура")
-                return
-        if self.__board[y1][x1] != None:
-            if piece.can_move(move_from, move_to) or self.__board[y1][x1].can_capture(move_from, move_to):
-                piece.move()
-                self.__board[y2][x2] = piece
-                self.__board[y1][x1] = None
-            else:
-                print("cant move")
+        if (y2, x2) in piece.get_possible_moves(self.__board):
+            piece.move()
+            self.__board[y2][x2] = piece
+            self.__board[y1][x1] = None
         else:
-            print("no piece")
+            print("Невозможный ход для фигуры")
 
-    def split_coordinates(self, coordinates):
-        if len(coordinates) == 2 and coordinates[0].isalpha() and coordinates[1].isdigit():
-            letter = coordinates[0]
-            number = coordinates[1]
-            return letter, number
-        else:
-            print("Неверные кординаты")
-            input()
+    def split_coordinates(self, coordinates: str) -> tuple[int, int]:
+        letter = coordinates[0]
+        number = coordinates[1]
+        return self.get_position((letter, number))
 
+    def get_position(self, position: tuple[str, str]) -> tuple[int, int]:
+        x = self.__coordinates[0].index(position[0])
+        y = self.__coordinates[1].index(position[1])
+        return x, y
 
 
