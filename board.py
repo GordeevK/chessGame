@@ -10,7 +10,7 @@ class Board:
     def __init__(self):
         self.__board = [
             ["bR", 'bN', 'bB', 'bQ', 'bK', 'bB', 'bN', 'bR'],
-            [Pawn("Black"), Pawn("Black"), Pawn("Black"), Pawn("Black"), Pawn("Black"), Pawn("Black"), Pawn("Black"), Pawn("Black")],
+            [Pawn("Black", (1, 0)), Pawn("Black", (1, 1)), Pawn("Black", (1, 2)), Pawn("Black", (1, 3)), Pawn("Black", (1, 4)), Pawn("Black", (1, 5)), Pawn("Black", (1, 6)), Pawn("Black", (1, 7))],
             [None, None, None, None, None, None, None, None],
             [None, None, None, None, None, None, None, None],
             [None, None, None, None, None, None, None, None],
