@@ -8,7 +8,7 @@ class Queen(Piece):
     def get_possible_moves(self, board: list[list]) -> list[tuple]:
         moves = []
         move_from = self.get_pos()
-        directions = [(0, -1), (0, 1), (1, 0), (-1, 0), (0, -1), (0, 1), (1, 0), (-1, 0)]
+        directions = [(0, -1), (0, 1), (1, 0), (-1, 0), (-1, -1), (-1, 1), (1, -1), (1, 1)]
         for dx, dy in directions:
             x, y = move_from
             while 0 <= x + dx < 8 and 0 <= y + dy < 8:
