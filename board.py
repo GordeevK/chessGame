@@ -47,10 +47,15 @@ class Board:
         print(piece)
 
     def print_piece_possible_moves(self, move_from):
+        result = []
         x1, y1 = self.split_coordinates(move_from)
         piece = self.__board[y1][x1].get_possible_moves(self.__board)
-        print(piece)
-        print(y1, x1)
+        for cord in piece:
+            x, y = cord[0], cord[1]
+            result.append(str(self.__coordinates[0][y]) + str(self.__coordinates[1][x]))
+        for r in result:
+            print(r, end=' ')
+        print()
 
     def move(self, move_from: str, move_to: str) -> None:
         x1, y1 = self.split_coordinates(move_from)
@@ -72,5 +77,3 @@ class Board:
         x = self.__coordinates[0].index(position[0])
         y = self.__coordinates[1].index(position[1])
         return x, y
-
-
