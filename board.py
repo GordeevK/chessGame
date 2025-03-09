@@ -24,6 +24,7 @@ class Board:
             [Rook("White", (7, 0)), Knight("White", (7, 1)), Bishop("White", (7, 2)), Queen("White", (7, 3)),
              King("White", (7, 4)), Bishop("White", (7, 5)), Knight("White", (7, 6)), Rook("White", (7, 7))],
         ]
+        self.color_move = "White"
         self.__coordinates = [
             ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
             ['8', '7', '6', '5', '4', '3', '2', '1']
@@ -44,7 +45,7 @@ class Board:
     def print_piece_position(self, move_from):
         x1, y1 = self.split_coordinates(move_from)
         piece = self.__board[y1][x1]
-        print(piece)
+        return piece
 
     def print_piece_possible_moves(self, move_from):
         result = []
@@ -65,8 +66,17 @@ class Board:
             piece.move()
             self.__board[y2][x2] = piece
             self.__board[y1][x1] = None
+            if self.color_move == "White":
+                self.color_move = "Black"
+            else:
+                self.color_move = "White"
         else:
             print("Невозможный ход для фигуры")
+
+    def get_color_move(self):
+        if self.color_move == "White":
+            return True
+        return False
 
     def split_coordinates(self, coordinates: str) -> tuple[int, int]:
         letter = coordinates[0]

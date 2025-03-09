@@ -27,14 +27,27 @@ board = Board()
 command = ""
 while command != "exit":
     board.print_board()
+    if board.get_color_move():
+        print("Ход белых")
+    else:
+        print("Ход чёрных")
     print("Команды:")
     print("exit -> выход \nmove <from> <to> -> Ход из клетки <from> в клетку <to>")
-    print("possible moves <position>")
+    print("possible moves <position> -> Возможные ходы для фигуры на <position>")
     command = str(input())
     if command[:4] == "move":
         move_from, move_to = parse_move_command(command)
-        board.move(move_from, move_to)
-    if command[:14] == "possible moves":
+        if board.print_piece_position(move_from) is None:
+            print("Выбери фигуру")
+            print("Нажмите Enter для продолжения")
+            input()
+        elif board.print_piece_position(move_from).is_white() == board.get_color_move():
+            board.move(move_from, move_to)
+        else:
+            print("Не твоя очередь хода")
+            print("Нажмите Enter для продолжения")
+            input()
+    elif command[:14] == "possible moves":
         board.print_piece_possible_moves(parse_possible_moves_command(command))
         print("Нажмите Enter для продолжения")
         input()
