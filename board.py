@@ -47,7 +47,7 @@ class Board:
         piece = self.__board[y1][x1]
         return piece
 
-    def print_piece_possible_moves(self, move_from):
+    def print_piece_possible_moves(self, move_from) -> None:
         result = []
         x1, y1 = self.split_coordinates(move_from)
         piece = self.__board[y1][x1].get_possible_moves(self.__board)
@@ -58,7 +58,7 @@ class Board:
             print(r, end=' ')
         print()
 
-    def get_kings(self):
+    def get_kings(self) -> tuple:
         for i in range(8):
             for j in range(8):
                 piece = self.__board[i][j]
