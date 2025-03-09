@@ -58,6 +58,17 @@ class Board:
             print(r, end=' ')
         print()
 
+    def get_kings(self):
+        for i in range(8):
+            for j in range(8):
+                piece = self.__board[i][j]
+                if isinstance(piece, King):
+                    if piece.is_white():
+                        white_king = piece
+                    else:
+                        black_king = piece
+        return white_king, black_king
+
     def move(self, move_from: str, move_to: str) -> None:
         x1, y1 = self.split_coordinates(move_from)
         x2, y2 = self.split_coordinates(move_to)
