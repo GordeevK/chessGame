@@ -12,7 +12,7 @@ class Pawn(Piece):
         one_step_forward = (move_from[0] + direction, move_from[1])
         if self.can_move(move_from, one_step_forward, board):
             moves.append(one_step_forward)
-        if (self.is_white() and move_from[0] == 6) or (not self.is_white() and move_from[0] == 1):
+        if self.is_first_move():
             two_steps_forward = (move_from[0] + 2 * direction, move_from[1])
             if self.can_move(move_from, two_steps_forward, board):
                 moves.append(two_steps_forward)

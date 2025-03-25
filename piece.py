@@ -22,8 +22,12 @@ class Piece:
     def get_pos(self) -> tuple:
         return self.position
 
-    def move(self) -> None:
+    def set_pos(self, new_pos: tuple) -> None:
+        self.position = new_pos
+
+    def move(self, new_cord: tuple) -> None:
         self.first_move = False
+        self.set_pos(new_cord)
 
     def is_first_move(self) -> bool:
         return self.first_move

@@ -1,5 +1,5 @@
 from piece import Piece
-from pieces.rook import Rook
+from pieces.knight import Knight
 
 
 class King(Piece):
@@ -25,3 +25,12 @@ class King(Piece):
                 if piece is not None and piece.is_white() != self.is_white():
                     moves = [cord for cord in moves if cord not in piece.get_possible_moves(board)]
         return moves
+
+    def in_check(self, board: list[list]) -> bool:
+        for i in range(8):
+            for j in range(8):
+                piece = board[i][j]
+                if piece is not None and piece.is_white() != self.is_white():
+                    if self.get_pos() in piece.get_possible_moves(board):
+                        return True
+        return False

@@ -26,14 +26,19 @@ def parse_possible_moves_command(parse_command):
 board = Board()
 command = ""
 while command != "exit":
+    white_king, black_king = board.get_kings()
     board.print_board()
     if board.get_color_move():
+        if white_king.in_check(board):
+            print("Белый король атакован")
         print("Ход белых")
     else:
+        if black_king.in_check(board):
+            print("Чёрный король атакован")
         print("Ход чёрных")
     print("Команды:")
     print("exit -> выход \nmove <from> <to> -> Ход из клетки <from> в клетку <to>")
-    print("possible moves <position> -> Возможные ходы для фигуры на <position>")
+    print("possible moves <position> -> Возможные ходы для фигуры на клетке <position>")
     command = str(input())
     if command[:4] == "move":
         move_from, move_to = parse_move_command(command)
